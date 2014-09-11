@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Toni Verbeiren" />
+  <title>A Shot at Reproducible Data Analysis</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="template-reveal/reveal.js-2.6.2/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="template-reveal/reveal.js-2.6.2/css/theme/simple.css" id="theme">
+
+<!-- Important for javascript graphs -->
+    <link rel="stylesheet" href="template-reveal/reveal.js-2.6.2/css/theme/night.css" id="theme">
+
+
+    <!-- For syntax highlighting using highlight.js-->
+    <link rel="stylesheet" href="template-reveal/reveal.js-2.6.2/lib/css/zenburn.css">
+
+  <link rel="stylesheet" media="print" href="template-reveal/reveal.js-2.6.2/css/print/pdf.css" />
+  <!--[if lt IE 9]>
+  <script src="template-reveal/reveal.js-2.6.2/lib/js/html5shiv.js"></script>
+  <![endif]-->
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</head>
+<body>
+
+<script src="d3.v3.min.js"></script>
+<script src="graphlib.min.js"></script>
+<script src="dagre-d3.min.js"></script>
+  <script src="template-reveal/reveal.js-2.6.2/lib/js/head.min.js"></script>
+  <script src="template-reveal/reveal.js-2.6.2/js/reveal.min.js"></script>
+
+
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">A Shot at Reproducible Data Analysis</h1>
+    <h2 class="author">Toni Verbeiren</h2>
+    <h3 class="date">10/9/2014</h3>
+</section>
+
+<section id="introduction" class="slide level1">
+<h1>Introduction</h1>
+<p>In this talk/document/presentation I showcase some of the possibilities that a combination of <em>tools</em> provides:</p>
+<ul>
+<li><a href="http://daringfireball.net/projects/markdown/">Markdown</a></li>
+<li><a href="http://rmarkdown.rstudio.com/">RMarkdown</a></li>
+<li><a href="http://yihui.name/knitr/">Knitr</a></li>
+<li><a href="http://johnmacfarlane.net/pandoc/">Pandoc</a></li>
+<li><a href="http://lab.hakim.se/reveal-js/#/">Reveal.js</a></li>
+<li><a href="http://www.latex-project.org/">Latex</a></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<p>In order to make sure things look good from the first start, you might check out some additional projects and files:</p>
+<ul>
+<li>Bootstrap template for Pandoc: <a href="https://github.com/tonyblundell/pandoc-bootstrap-template">https://github.com/tonyblundell/pandoc-bootstrap-template</a></li>
+<li>Alternative LaTeX templates: <a href="https://github.com/kjhealy/latex-custom-kjh">https://github.com/kjhealy/latex-custom-kjh</a></li>
+<li>Alternative Pandoc template: <a href="https://github.com/kjhealy/pandoc-templates">https://github.com/kjhealy/pandoc-templates</a></li>
+</ul>
+</section>
+<section id="idea" class="slide level1">
+<h1>Idea</h1>
+<p>This is the general idea of the production workflow:</p>
+<ol type="1">
+<li>Write data generation, data manipulation and discussion in <strong>one text file</strong>.
+<ul>
+<li>Syntax for text is Markdown.</li>
+<li>Code lines start with <code>tab</code> or delimited by <code>```</code></li>
+<li>Call this file <code>file.Rmd</code>, even if it includes more than <code>R</code> code.</li>
+</ul></li>
+<li><p>Call <code>knitr</code> on the <code>.Rmd</code> file in order to <strong>execute</strong> the code blocks and <strong>include</strong> the output of the code in one file. The output is a <code>.md</code> file.</p></li>
+<li><p>Call <code>Pandoc</code> on the file, given suitable options (see below). <code>Pandoc</code> is responsible for translating the <code>.md</code> file to <strong>any format</strong> you want.</p></li>
+</ol>
+</section>
+<section class="slide level1">
+
+<p>A simple and a more involved example of running <code>Pandoc</code>:</p>
+<pre class="shell"><code>pandoc file.md -o $(FILE).docx
+
+pandoc $(FILE).md -o $(FILE).html \
+      -t html5 \
+            --template $(THTML)/template.html \
+            --css $(THTML)/template.css \
+            --highlight-style=tango --mathjax \
+            --toc --toc-depth 2</code></pre>
+</section>
+<section id="some-examples" class="slide level1">
+<h1>Some Examples</h1>
+</section>
+<section class="slide level1">
+
+<h2 id="simple-example">Simple example</h2>
+<p>The first example is in <code>R</code>. Let's say I want to plot a function</p>
+<p><span class="math">\[ f(x) = \frac{\log(x^2+x+1)}{2x} \]</span></p>
+<p>We first define <span class="math">\(x\)</span> and the function value <span class="math">\(y\)</span> (in doing so we have used some inline equations as well):</p>
+<pre class="r"><code>x &lt;- seq(from=-5,to=10,by=.01)
+y &lt;- (log(x*x + x + 1))/(2*x)</code></pre>
+</section>
+<section class="slide level1">
+
+<p>Then we can plot the function. We use the <code>ggplot2</code> package.</p>
+<pre class="r"><code>library(ggplot2)
+qplot(x,y,geom=&quot;line&quot;)</code></pre>
+<figure>
+<img src="figure/chunk.png" alt="Plot of the very special function defined above." /><figcaption>Plot of the very special function defined above.</figcaption>
+</figure>
+<p>See the figure for the result.</p>
+</section>
+<section class="slide level1">
+
+<h2 id="working-with-data">Working with data</h2>
+<p>Let us take a look at a dataset that comes with <code>R</code>, <code>mtcars</code>:</p>
+<pre class="r"><code>summary(mtcars)</code></pre>
+<pre><code>##       mpg            cyl            disp             hp       
+##  Min.   :10.4   Min.   :4.00   Min.   : 71.1   Min.   : 52.0  
+##  1st Qu.:15.4   1st Qu.:4.00   1st Qu.:120.8   1st Qu.: 96.5  
+##  Median :19.2   Median :6.00   Median :196.3   Median :123.0  
+##  Mean   :20.1   Mean   :6.19   Mean   :230.7   Mean   :146.7  
+##  3rd Qu.:22.8   3rd Qu.:8.00   3rd Qu.:326.0   3rd Qu.:180.0  
+##  Max.   :33.9   Max.   :8.00   Max.   :472.0   Max.   :335.0  
+##       drat            wt            qsec            vs       
+##  Min.   :2.76   Min.   :1.51   Min.   :14.5   Min.   :0.000  
+##  1st Qu.:3.08   1st Qu.:2.58   1st Qu.:16.9   1st Qu.:0.000  
+##  Median :3.69   Median :3.33   Median :17.7   Median :0.000  
+##  Mean   :3.60   Mean   :3.22   Mean   :17.8   Mean   :0.438  
+##  3rd Qu.:3.92   3rd Qu.:3.61   3rd Qu.:18.9   3rd Qu.:1.000  
+##  Max.   :4.93   Max.   :5.42   Max.   :22.9   Max.   :1.000  
+##        am             gear           carb     
+##  Min.   :0.000   Min.   :3.00   Min.   :1.00  
+##  1st Qu.:0.000   1st Qu.:3.00   1st Qu.:2.00  
+##  Median :0.000   Median :4.00   Median :2.00  
+##  Mean   :0.406   Mean   :3.69   Mean   :2.81  
+##  3rd Qu.:1.000   3rd Qu.:4.00   3rd Qu.:4.00  
+##  Max.   :1.000   Max.   :5.00   Max.   :8.00</code></pre>
+</section>
+<section class="slide level1">
+
+<p>Now the fun starts. Let's fit a model relates how many Miles/Gallon are consumed, given a weight.</p>
+<pre class="r"><code>model &lt;- lm(mpg ~ wt, data=mtcars)
+summary(model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.543 -2.365 -0.125  1.410  6.873 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   37.285      1.878   19.86  &lt; 2e-16 ***
+## wt            -5.344      0.559   -9.56  1.3e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.05 on 30 degrees of freedom
+## Multiple R-squared:  0.753,  Adjusted R-squared:  0.745 
+## F-statistic: 91.4 on 1 and 30 DF,  p-value: 1.29e-10</code></pre>
+</section>
+<section class="slide level1">
+
+<p>This is verbatim output, we can use some <code>R</code> package magic to get proper tables as output as well using the <code>pander</code> package:</p>
+<pre class="r"><code>library(pander)
+pander(model)</code></pre>
+<table>
+<caption>Fitting linear model: mpg ~ wt</caption>
+<col style="width: 25%" /><col style="width: 15%" /><col style="width: 18%" /><col style="width: 13%" /><col style="width: 13%" /><thead>
+<tr class="header">
+<th style="text-align: center;"> </th>
+<th style="text-align: center;">Estimate</th>
+<th style="text-align: center;">Std. Error</th>
+<th style="text-align: center;">t value</th>
+<th style="text-align: center;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>wt</strong></td>
+<td style="text-align: center;">-5.344</td>
+<td style="text-align: center;">0.5591</td>
+<td style="text-align: center;">-9.559</td>
+<td style="text-align: center;">1.294e-10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>(Intercept)</strong></td>
+<td style="text-align: center;">37.29</td>
+<td style="text-align: center;">1.878</td>
+<td style="text-align: center;">19.86</td>
+<td style="text-align: center;">8.242e-19</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level1">
+
+<p>We can also plot this information using the code below.</p>
+<pre class="r"><code>qplot(x=wt, y=mpg, data=mtcars, xlab=&quot;Weight (lb/1000)&quot;, ylab=&quot;Miles per Gallon&quot;,
+      geom=c(&quot;point&quot;,&quot;smooth&quot;), method=&quot;lm&quot;)</code></pre>
+<figure>
+<img src="figure/unnamed-chunk-5.png" alt="A scatterplot of the fuel consumption versus the weight of the car, along with the results of a linear regression. See the text for more information." /><figcaption>A scatterplot of the fuel consumption versus the weight of the car, along with the results of a linear regression. See the text for more information.</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="scraping-the-web">Scraping the web</h2>
+<p>This script parses the Wikipedia page with Belgian Beers in order to get the data out. It then does some cleaning up and converts the data to different formats. The result can be stored in a file, but just display the first 10 rows.</p>
+</section>
+<section class="slide level1">
+
+<pre class="r"><code>library(XML)
+rawBeers &lt;- readHTMLTable(doc=&quot;http://nl.wikipedia.org/wiki/Lijst_van_Belgische_bieren&quot;)
+beers &lt;- NULL
+
+# The first table is not relevant, the rest is:
+for (i in seq(2,28)) {
+  beers &lt;- rbind(beers,rawBeers[[i]])
+}
+
+# Remove the percentage sign and convert to numbers:
+beers$Percentagealcohol &lt;- gsub(&quot;%&quot;,&quot;&quot;,beers$Percentagealcohol)
+beers$Percentagealcohol &lt;- gsub(&quot;,&quot;,&quot;.&quot;,beers$Percentagealcohol)
+beers$Percentagealcohol &lt;-as.numeric(beers$Percentagealcohol)</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre class="r"><code># A few entries do not have a percentage entry
+nas &lt;- length(beers[is.na(beers$Percentagealcohol),])</code></pre>
+</section>
+<section class="slide level1">
+
+<p>The number of entries without percentage entry is: 4.</p>
+<p>We use <code>pander</code> again for displaying the top-10 of beers with the highest amount of alcohol:</p>
+</section>
+<section class="slide level1">
+
+<pre class="r"><code>pander(
+  head(
+    beers[order(beers$Percentagealcohol,decreasing=TRUE),
+          c(&quot;Merk&quot;,&quot;Percentagealcohol&quot;)],
+    10)
+  )</code></pre>
+<table>
+<col style="width: 13%" /><col style="width: 38%" /><col style="width: 26%" /><thead>
+<tr class="header">
+<th style="text-align: center;"> </th>
+<th style="text-align: center;">Merk</th>
+<th style="text-align: center;">Percentagealcohol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>194</strong></td>
+<td style="text-align: center;">Black Damnation V (Double Black)</td>
+<td style="text-align: center;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>405</strong></td>
+<td style="text-align: center;">Cuv<U+00E9>e d'Erpigny</td>
+<td style="text-align: center;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>189</strong></td>
+<td style="text-align: center;">Black Albert</td>
+<td style="text-align: center;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>190</strong></td>
+<td style="text-align: center;">Black Damnation I</td>
+<td style="text-align: center;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>192</strong></td>
+<td style="text-align: center;">Black Damnation III (Black Mes)</td>
+<td style="text-align: center;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>193</strong></td>
+<td style="text-align: center;">Black Damnation IV (Coff<U+00E9>e Club)</td>
+<td style="text-align: center;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>312</strong></td>
+<td style="text-align: center;">Bush de No<U+00EB>l Premium</td>
+<td style="text-align: center;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>313</strong></td>
+<td style="text-align: center;">Bush de Nuits</td>
+<td style="text-align: center;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>314</strong></td>
+<td style="text-align: center;">Bush Prestige</td>
+<td style="text-align: center;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>404</strong></td>
+<td style="text-align: center;">Cuv<U+00E9>e Delphine</td>
+<td style="text-align: center;">13</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="different-languages" class="slide level1">
+<h1>Different languages</h1>
+<p>A Python example:</p>
+<pre class="python"><code>import pprint
+pprint.pprint(zip((&#39;Byte&#39;, &#39;KByte&#39;, &#39;MByte&#39;, &#39;GByte&#39;, &#39;TByte&#39;), (1 &lt;&lt; 10*i for i in xrange(5))))</code></pre>
+<pre><code>## [(&#39;Byte&#39;, 1),
+##  (&#39;KByte&#39;, 1024),
+##  (&#39;MByte&#39;, 1048576),
+##  (&#39;GByte&#39;, 1073741824),
+##  (&#39;TByte&#39;, 1099511627776)]</code></pre>
+<p>A Scala example:</p>
+<pre class="scala"><code>val collection = for {i &lt;- 1 to 10} yield {i}
+val mapped = collection map (x =&gt; x*x)
+val reduced = mapped reduce (_ + _)
+println(reduced)</code></pre>
+<pre><code>## 385</code></pre>
+</section>
+<section id="what-to-use-it-for" class="slide level1">
+<h1>What to use it for?</h1>
+<p>I use it for:</p>
+<ul>
+<li>Creating presentations (<code>reveal.js</code>)</li>
+<li>Writing reports (including code)</li>
+<li>Writing papers (just text)</li>
+<li>Making coffee</li>
+</ul>
+</section>
+<section id="some-additional-pointers" class="slide level1">
+<h1>Some additional pointers</h1>
+<ul>
+<li>Markdown to <code>Reveal.js</code>: <a href="http://tverbeiren.github.io/BigDataBe-Spark/#/">http://tverbeiren.github.io/BigDataBe-Spark/#/</a></li>
+<li>Markdown and <code>Pandoc</code> for writing a paper: <a href="http://homes.esat.kuleuven.be/~bioiuser/blog/?p=243">http://homes.esat.kuleuven.be/~bioiuser/blog/?p=243</a></li>
+<li>Markdown and <code>Pandoc</code> for lecture notes: <a href="https://bitbucket.org/tverbeiren/i0u19a">https://bitbucket.org/tverbeiren/i0u19a</a></li>
+</ul>
+<p>You can find everything I showed here at:</p>
+</section>
+    </div>
+  </div>
+
+
+
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+        theme: 'moon', // available themes are in /css/theme
+        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'template-reveal/reveal.js-2.6.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+//          { src: 'template-reveal/reveal.js-2.6.2/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'template-reveal/reveal.js-2.6.2/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'template-reveal/reveal.js-2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: 'template-reveal/reveal.js-2.6.2/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'template-reveal/reveal.js-2.6.2/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+  </body>
+</html>
