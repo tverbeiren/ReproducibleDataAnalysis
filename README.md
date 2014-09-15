@@ -16,7 +16,7 @@ Some things are left out of the repo. The custom stylesheet for the PDF, for ins
 These are the versions you can find here:
 
 * The base file is `RR.Rmd`: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.Rmd>
-* * The processed `RR.md` by running `knitr`: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.md>
+* The processed `RR.md` by running `knitr`: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.md>
 * The derived `RRs.md` without the horizontal lines: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RRs.md>
 * Simple html file: <* The derived `RRs.md` without the horizontal lines: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-simple.html>
 * _Bootstrapped_ html file: <* The derived `RRs.md` without the horizontal lines: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.html>

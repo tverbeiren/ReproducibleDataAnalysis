@@ -1,6 +1,6 @@
 % A Shot at Reproducible Data Analysis
 % Toni Verbeiren
-% 10/9/2014
+% 15/9/2014
 
 # Introduction
 
@@ -300,7 +300,7 @@ I use it for:
 * Markdown to `Reveal.js`: <http://tverbeiren.github.io/BigDataBe-Spark/#/>
 * Markdown and `Pandoc` for writing a paper: <http://homes.esat.kuleuven.be/~bioiuser/blog/?p=243>
 * Markdown and `Pandoc` for lecture notes: <https://bitbucket.org/tverbeiren/i0u19a>
-* You can find everything I showed here at: 
+* You can find everything I showed here at: <http://github.io/tverbeiren/ReproducibleDataAnalysis/>
 
 
 
