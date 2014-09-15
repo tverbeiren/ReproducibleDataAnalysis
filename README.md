@@ -20,7 +20,7 @@ These are the versions you can find here:
 * The derived `RRs.md` without the horizontal lines: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RRs.md>
 * Simple html file: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-simple.html>
 * _Bootstrapped_ html file: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.html>
-* `Reveal.js` version: <* The derived `RRs.md` without the horizontal lines: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-slides.html>
+* `Reveal.js` version: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-slides.html>
 * Simple PDF file: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-simple.pdf>
 * Improved PDF file: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.pdf>
 * Microsoft Word file: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.docx>
