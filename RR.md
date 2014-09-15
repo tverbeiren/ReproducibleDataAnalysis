@@ -242,7 +242,7 @@ pander(
  **194**   Black Damnation V (Double          26         
                     Black)                               
 
- **405**    Cuv<U+00E9>e d'Erpigny            15         
+ **410**    Cuv<U+00E9>e d'Erpigny            15         
 
  **189**         Black Albert                 13         
 
@@ -260,7 +260,7 @@ pander(
 
  **314**         Bush Prestige                13         
 
- **404**     Cuv<U+00E9>e Delphine            13         
+ **409**     Cuv<U+00E9>e Delphine            13         
 ---------------------------------------------------------
 
 
