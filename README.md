@@ -15,9 +15,9 @@ Some things are left out of the repo. The custom stylesheet for the PDF, for ins
 
 These are the versions you can find here:
 
-* [The base file `RR.Rmd`](https://github.com/tverbeiren/ReproducibleDataAnalysis/RR.Rmd)
-* [The processed `RR.md` by running `knitr`](https://github.com/tverbeiren/ReproducibleDataAnalysis/RR.md)
-* [The derived `RRs.md` without the horizontal lines](https://github.com/tverbeiren/ReproducibleDataAnalysis/RRs.md)
+* [The base file `RR.Rmd`](https://github.com/tverbeiren/ReproducibleDataAnalysis//blob/master/RR.Rmd)
+* [The processed `RR.md` by running `knitr`](https://github.com/tverbeiren/ReproducibleDataAnalysis//blob/master/RR.md)
+* [The derived `RRs.md` without the horizontal lines](https://github.com/tverbeiren/ReproducibleDataAnalysis//blob/master/RRs.md)
 * [Simple html file](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-simple.html)
 * [_Bootstrapped_ html file](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.html)
 * [`Reveal.js` version](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-slides.html)
