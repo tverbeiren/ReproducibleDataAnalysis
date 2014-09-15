@@ -15,14 +15,19 @@ Some things are left out of the repo. The custom stylesheet for the PDF, for ins
 
 These are the versions you can find here:
 
-* The base file is `RR.Rmd`: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.Rmd>
-* The processed `RR.md` by running `knitr`: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.md>
-* The derived `RRs.md` without the horizontal lines: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RRs.md>
-* Simple html file: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-simple.html>
-* _Bootstrapped_ html file: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.html>
-* `Reveal.js` version: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-slides.html>
-* Simple PDF file: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-simple.pdf>
-* Improved PDF file: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.pdf>
-* Microsoft Word file: <http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.docx>
+* [The base file `RR.Rmd`](https://github.com/tverbeiren/ReproducibleDataAnalysis/RR.Rmd)
+* [The processed `RR.md` by running `knitr`](https://github.com/tverbeiren/ReproducibleDataAnalysis/RR.md)
+* [The derived `RRs.md` without the horizontal lines](https://github.com/tverbeiren/ReproducibleDataAnalysis/RRs.md)
+* [Simple html file](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-simple.html)
+* [_Bootstrapped_ html file](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.html)
+* [`Reveal.js` version](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-slides.html)
+* [Simple PDF file](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-simple.pdf)
+* [Improved PDF file](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.pdf)
+* [Microsoft Word file](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.docx)
 
+
+## Todo
+
+* Add info and pointers to _how_ I actually use these tools.
+* Add pointer to `Marked`.
 
