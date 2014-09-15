@@ -24,6 +24,7 @@ These are the versions you can find here:
 * [Simple PDF file](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR-simple.pdf)
 * [Improved PDF file](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.pdf)
 * [Microsoft Word file](http://tverbeiren.github.io/ReproducibleDataAnalysis/RR.docx)
+* [View Microsoft Word format online](http://docs.google.com/viewer?url=http%3A%2F%2Ftverbeiren.github.io%2FReproducibleDataAnalysis%2FRR.docx)
 
 
 ## Todo
