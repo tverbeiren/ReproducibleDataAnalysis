@@ -37,7 +37,7 @@ code > span.er { font-weight: bold; }
         <span class="doc-title">A Shot at Reproducible Data Analysis</span>
         <ul class="nav pull-right doc-info">
                     <li><p class="navbar-text">Toni Verbeiren</p></li>
-                              <li><p class="navbar-text">15/9/2014</p></li>
+                              <li><p class="navbar-text">13/3/2015</p></li>
                   </ul>
       </div>
     </div>
@@ -54,8 +54,10 @@ code > span.er { font-weight: bold; }
         <li><a href="#idea">Idea</a></li>
         <li><a href="#some-examples">Some Examples</a></li>
         <li><a href="#different-languages">Different languages</a></li>
+        <li><a href="#sweave">Sweave</a></li>
         <li><a href="#what-to-use-it-for">What to use it for?</a></li>
-        <li><a href="#some-additional-pointers">Some additional pointers</a></li>
+        <li><a href="#how-to-use-it">How to use it?</a></li>
+        <li><a href="#additional-pointers">Additional pointers</a></li>
         </ul>
         </div>
       </div>
@@ -75,9 +77,10 @@ code > span.er { font-weight: bold; }
 <li>Bootstrap template for Pandoc: <a href="https://github.com/tonyblundell/pandoc-bootstrap-template">https://github.com/tonyblundell/pandoc-bootstrap-template</a></li>
 <li>Alternative LaTeX templates: <a href="https://github.com/kjhealy/latex-custom-kjh">https://github.com/kjhealy/latex-custom-kjh</a></li>
 <li>Alternative Pandoc template: <a href="https://github.com/kjhealy/pandoc-templates">https://github.com/kjhealy/pandoc-templates</a></li>
+<li>Non-official KU Leuven templates: <a href="https://github.com/exporl/kuleuven-templates">https://github.com/exporl/kuleuven-templates</a></li>
 </ul>
 <h1 id="idea">Idea</h1>
-<p>This is the general idea of the production workflow:</p>
+<h2 id="workflow">Workflow</h2>
 <ol type="1">
 <li>Write data generation, data manipulation and discussion in <strong>one text file</strong>.
 <ul>
@@ -88,15 +91,117 @@ code > span.er { font-weight: bold; }
 <li><p>Call <code>knitr</code> on the <code>.Rmd</code> file in order to <strong>execute</strong> the code blocks and <strong>include</strong> the output of the code in one file. The output is a <code>.md</code> file.</p></li>
 <li><p>Call <code>Pandoc</code> on the file, given suitable options (see below). <code>Pandoc</code> is responsible for translating the <code>.md</code> file to <strong>any format</strong> you want.</p></li>
 </ol>
+<h2 id="rmarkdown-format">RMarkdown format</h2>
+<p>The <code>.Rmd</code> source of this report looks like this (50 lines):</p>
+<pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&quot;RR.Rmd&quot;</span>,<span class="dt">encoding=</span><span class="st">&quot;UTF-8&quot;</span>)
+<span class="kw">tail</span>(<span class="kw">head</span>(text, <span class="dv">70</span>),<span class="dv">50</span>)</code></pre>
+<pre><code> [1] &quot;  &lt;https://github.com/tonyblundell/pandoc-bootstrap-template&gt;&quot;                                                                                             
+ [2] &quot;* Alternative LaTeX templates: &quot;                                                                                                                           
+ [3] &quot;  &lt;https://github.com/kjhealy/latex-custom-kjh&gt;&quot;                                                                                                           
+ [4] &quot;* Alternative Pandoc template: &quot;                                                                                                                           
+ [5] &quot;  &lt;https://github.com/kjhealy/pandoc-templates&gt;&quot;                                                                                                           
+ [6] &quot;* Non-official KU Leuven templates:&quot;                                                                                                                       
+ [7] &quot;  &lt;https://github.com/exporl/kuleuven-templates&gt;&quot;                                                                                                          
+ [8] &quot;&quot;                                                                                                                                                          
+[10] &quot;&quot;                                                                                                                                                          
+[11] &quot;# Idea&quot;                                                                                                                                                    
+[12] &quot;&quot;                                                                                                                                                          
+[14] &quot;&quot;                                                                                                                                                          
+[15] &quot;## Workflow&quot;                                                                                                                                               
+[16] &quot;&quot;                                                                                                                                                          
+[17] &quot;1. Write data generation, data manipulation and discussion in **one text file**.&quot;                                                                          
+[18] &quot;    * Syntax for text is Markdown.&quot;                                                                                                                        
+[19] &quot;    * Code lines start with `tab` or delimited by `` ``` ``&quot;                                                                                               
+[20] &quot;    * Call this file `file.Rmd`, even if it includes more than `R` code.&quot;                                                                                  
+[21] &quot;&quot;                                                                                                                                                          
+[22] &quot;2. Call `knitr` on the `.Rmd` file in order to **execute** the code blocks and **include** the output of the code in one file. The output is a `.md` file.&quot;
+[23] &quot;&quot;                                                                                                                                                          
+[24] &quot;3. Call `Pandoc` on the file, given suitable options (see below). `Pandoc` is responsible for translating the `.md` file to **any format** you want. &quot;     
+[25] &quot;&quot;                                                                                                                                                          
+[27] &quot;&quot;                                                                                                                                                          
+[28] &quot;## RMarkdown format&quot;                                                                                                                                       
+[29] &quot;&quot;                                                                                                                                                          
+[30] &quot;The `.Rmd` source of this report looks like this (50 lines):&quot;                                                                                              
+[31] &quot;&quot;                                                                                                                                                          
+[32] &quot;```{r, results=\&quot;markup\&quot;, comment=\&quot;\&quot;}&quot;                                                                                                                  
+[33] &quot;text &lt;- readLines(\&quot;RR.Rmd\&quot;,encoding=\&quot;UTF-8\&quot;)&quot;                                                                                                          
+[34] &quot;tail(head(text, 70),50)&quot;                                                                                                                                   
+[35] &quot;```&quot;                                                                                                                                                       
+[36] &quot;&quot;                                                                                                                                                          
+[38] &quot;&quot;                                                                                                                                                          
+[39] &quot;## Markdown format&quot;                                                                                                                                        
+[40] &quot;&quot;                                                                                                                                                          
+[41] &quot;The `.md` source of this report looks like this (50 lines):&quot;                                                                                               
+[42] &quot;&quot;                                                                                                                                                          
+[43] &quot;```{r, results=\&quot;markup\&quot;, comment=\&quot;\&quot;}&quot;                                                                                                                  
+[44] &quot;text &lt;- readLines(\&quot;RR.md\&quot;,encoding=\&quot;UTF-8\&quot;)&quot;                                                                                                           
+[45] &quot;tail(head(text, 70),50)&quot;                                                                                                                                   
+[46] &quot;```&quot;                                                                                                                                                       
+[47] &quot;&quot;                                                                                                                                                          
+[48] &quot;Conversion is done using `knitr`.&quot;                                                                                                                         
+[49] &quot;&quot;                                                                                                                                                          </code></pre>
+<h2 id="markdown-format">Markdown format</h2>
+<p>The <code>.md</code> source of this report looks like this (50 lines):</p>
+<pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&quot;RR.md&quot;</span>,<span class="dt">encoding=</span><span class="st">&quot;UTF-8&quot;</span>)
+<span class="kw">tail</span>(<span class="kw">head</span>(text, <span class="dv">70</span>),<span class="dv">50</span>)</code></pre>
+<pre><code> [1] &quot;  &lt;https://github.com/tonyblundell/pandoc-bootstrap-template&gt;&quot;                                                                                                      
+ [2] &quot;* Alternative LaTeX templates: &quot;                                                                                                                                    
+ [3] &quot;  &lt;https://github.com/kjhealy/latex-custom-kjh&gt;&quot;                                                                                                                    
+ [4] &quot;* Alternative Pandoc template: &quot;                                                                                                                                    
+ [5] &quot;  &lt;https://github.com/kjhealy/pandoc-templates&gt;&quot;                                                                                                                    
+ [6] &quot;* Non-official KU Leuven templates:&quot;                                                                                                                                
+ [7] &quot;  &lt;https://github.com/exporl/kuleuven-templates&gt;&quot;                                                                                                                   
+ [8] &quot;&quot;                                                                                                                                                                   
+[10] &quot;&quot;                                                                                                                                                                   
+[11] &quot;# Idea&quot;                                                                                                                                                             
+[12] &quot;&quot;                                                                                                                                                                   
+[14] &quot;&quot;                                                                                                                                                                   
+[15] &quot;## Workflow&quot;                                                                                                                                                        
+[16] &quot;&quot;                                                                                                                                                                   
+[17] &quot;1. Write data generation, data manipulation and discussion in **one text file**.&quot;                                                                                   
+[18] &quot;    * Syntax for text is Markdown.&quot;                                                                                                                                 
+[19] &quot;    * Code lines start with `tab` or delimited by `` ``` ``&quot;                                                                                                        
+[20] &quot;    * Call this file `file.Rmd`, even if it includes more than `R` code.&quot;                                                                                           
+[21] &quot;&quot;                                                                                                                                                                   
+[22] &quot;2. Call `knitr` on the `.Rmd` file in order to **execute** the code blocks and **include** the output of the code in one file. The output is a `.md` file.&quot;         
+[23] &quot;&quot;                                                                                                                                                                   
+[24] &quot;3. Call `Pandoc` on the file, given suitable options (see below). `Pandoc` is responsible for translating the `.md` file to **any format** you want. &quot;              
+[25] &quot;&quot;                                                                                                                                                                   
+[27] &quot;&quot;                                                                                                                                                                   
+[28] &quot;## RMarkdown format&quot;                                                                                                                                                
+[29] &quot;&quot;                                                                                                                                                                   
+[30] &quot;The `.Rmd` source of this report looks like this (50 lines):&quot;                                                                                                       
+[31] &quot;&quot;                                                                                                                                                                   
+[32] &quot;&quot;                                                                                                                                                                   
+[33] &quot;```r&quot;                                                                                                                                                               
+[34] &quot;text &lt;- readLines(\&quot;RR.Rmd\&quot;,encoding=\&quot;UTF-8\&quot;)&quot;                                                                                                                   
+[35] &quot;tail(head(text, 70),50)&quot;                                                                                                                                            
+[36] &quot;```&quot;                                                                                                                                                                
+[37] &quot;&quot;                                                                                                                                                                   
+[38] &quot;```&quot;                                                                                                                                                                
+[39] &quot; [1] \&quot;  &lt;https://github.com/tonyblundell/pandoc-bootstrap-template&gt;\&quot;                                                                                             &quot;
+[40] &quot; [2] \&quot;* Alternative LaTeX templates: \&quot;                                                                                                                           &quot;
+[41] &quot; [3] \&quot;  &lt;https://github.com/kjhealy/latex-custom-kjh&gt;\&quot;                                                                                                           &quot;
+[42] &quot; [4] \&quot;* Alternative Pandoc template: \&quot;                                                                                                                           &quot;
+[43] &quot; [5] \&quot;  &lt;https://github.com/kjhealy/pandoc-templates&gt;\&quot;                                                                                                           &quot;
+[44] &quot; [6] \&quot;* Non-official KU Leuven templates:\&quot;                                                                                                                       &quot;
+[45] &quot; [7] \&quot;  &lt;https://github.com/exporl/kuleuven-templates&gt;\&quot;                                                                                                          &quot;
+[46] &quot; [8] \&quot;\&quot;                                                                                                                                                          &quot;
+[48] &quot;[10] \&quot;\&quot;                                                                                                                                                          &quot;
+[49] &quot;[11] \&quot;# Idea\&quot;                                                                                                                                                    &quot;
+[50] &quot;[12] \&quot;\&quot;                                                                                                                                                          &quot;</code></pre>
+<p>Conversion is done using <code>knitr</code>.</p>
+<h2 id="pandoc">Pandoc</h2>
 <p>A simple and a more involved example of running <code>Pandoc</code>:</p>
-<pre class="shell"><code>pandoc file.md -o $(FILE).docx
+<pre class="shell"><code>pandoc file.md -o file.docx
 
-pandoc $(FILE).md -o $(FILE).html \
+pandoc file.md -o file.html \
       -t html5 \
-            --template $(THTML)/template.html \
-            --css $(THTML)/template.css \
+            --template template.html \
+            --css template.css \
             --highlight-style=tango --mathjax \
             --toc --toc-depth 2</code></pre>
+<p>Dust off your <code>Makefile</code> skills!</p>
 <h1 id="some-examples">Some Examples</h1>
 <h2 id="simple-example">Simple example</h2>
 <p>The first example is in <code>R</code>. Let's say I want to plot a function</p>
@@ -108,33 +213,33 @@ y &lt;-<span class="st"> </span>(<span class="kw">log</span>(x*x +<span class="s
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">qplot</span>(x,y,<span class="dt">geom=</span><span class="st">&quot;line&quot;</span>)</code></pre>
 <figure>
-<img src="figure/chunk.png" alt="Plot of the very special function defined above." /><figcaption>Plot of the very special function defined above.</figcaption>
+<img src="figure/chunk-1.png" alt="Plot of the very special function defined above." /><figcaption>Plot of the very special function defined above.</figcaption>
 </figure>
 <p>See the figure for the result.</p>
 <h2 id="working-with-data">Working with data</h2>
 <p>Let us take a look at a dataset that comes with <code>R</code>, <code>mtcars</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mtcars)</code></pre>
-<pre><code>##       mpg            cyl            disp             hp       
-##  Min.   :10.4   Min.   :4.00   Min.   : 71.1   Min.   : 52.0  
-##  1st Qu.:15.4   1st Qu.:4.00   1st Qu.:120.8   1st Qu.: 96.5  
-##  Median :19.2   Median :6.00   Median :196.3   Median :123.0  
-##  Mean   :20.1   Mean   :6.19   Mean   :230.7   Mean   :146.7  
-##  3rd Qu.:22.8   3rd Qu.:8.00   3rd Qu.:326.0   3rd Qu.:180.0  
-##  Max.   :33.9   Max.   :8.00   Max.   :472.0   Max.   :335.0  
-##       drat            wt            qsec            vs       
-##  Min.   :2.76   Min.   :1.51   Min.   :14.5   Min.   :0.000  
-##  1st Qu.:3.08   1st Qu.:2.58   1st Qu.:16.9   1st Qu.:0.000  
-##  Median :3.69   Median :3.33   Median :17.7   Median :0.000  
-##  Mean   :3.60   Mean   :3.22   Mean   :17.8   Mean   :0.438  
-##  3rd Qu.:3.92   3rd Qu.:3.61   3rd Qu.:18.9   3rd Qu.:1.000  
-##  Max.   :4.93   Max.   :5.42   Max.   :22.9   Max.   :1.000  
-##        am             gear           carb     
-##  Min.   :0.000   Min.   :3.00   Min.   :1.00  
-##  1st Qu.:0.000   1st Qu.:3.00   1st Qu.:2.00  
-##  Median :0.000   Median :4.00   Median :2.00  
-##  Mean   :0.406   Mean   :3.69   Mean   :2.81  
-##  3rd Qu.:1.000   3rd Qu.:4.00   3rd Qu.:4.00  
-##  Max.   :1.000   Max.   :5.00   Max.   :8.00</code></pre>
+<pre><code>##       mpg             cyl             disp             hp       
+##  Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
+##  1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
+##  Median :19.20   Median :6.000   Median :196.3   Median :123.0  
+##  Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
+##  3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
+##  Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
+##       drat             wt             qsec             vs        
+##  Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  
+##  1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  
+##  Median :3.695   Median :3.325   Median :17.71   Median :0.0000  
+##  Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
+##  3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
+##  Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
+##        am              gear            carb      
+##  Min.   :0.0000   Min.   :3.000   Min.   :1.000  
+##  1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :0.0000   Median :4.000   Median :2.000  
+##  Mean   :0.4062   Mean   :3.688   Mean   :2.812  
+##  3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
+##  Max.   :1.0000   Max.   :5.000   Max.   :8.000</code></pre>
 <p>Now the fun starts. Let's fit a model relates how many Miles/Gallon are consumed, given a weight.</p>
 <pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span>wt, <span class="dt">data=</span>mtcars)
 <span class="kw">summary</span>(model)</code></pre>
@@ -143,19 +248,19 @@ y &lt;-<span class="st"> </span>(<span class="kw">log</span>(x*x +<span class="s
 ## lm(formula = mpg ~ wt, data = mtcars)
 ## 
 ## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -4.543 -2.365 -0.125  1.410  6.873 
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   37.285      1.878   19.86  &lt; 2e-16 ***
-## wt            -5.344      0.559   -9.56  1.3e-10 ***
+## (Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 3.05 on 30 degrees of freedom
-## Multiple R-squared:  0.753,  Adjusted R-squared:  0.745 
-## F-statistic: 91.4 on 1 and 30 DF,  p-value: 1.29e-10</code></pre>
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 <p>This is verbatim output, we can use some <code>R</code> package magic to get proper tables as output as well using the <code>pander</code> package:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pander)
 <span class="kw">pander</span>(model)</code></pre>
@@ -191,7 +296,7 @@ y &lt;-<span class="st"> </span>(<span class="kw">log</span>(x*x +<span class="s
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg, <span class="dt">data=</span>mtcars, <span class="dt">xlab=</span><span class="st">&quot;Weight (lb/1000)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Miles per Gallon&quot;</span>,
       <span class="dt">geom=</span><span class="kw">c</span>(<span class="st">&quot;point&quot;</span>,<span class="st">&quot;smooth&quot;</span>), <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</code></pre>
 <figure>
-<img src="figure/unnamed-chunk-5.png" alt="A scatterplot of the fuel consumption versus the weight of the car, along with the results of a linear regression. See the text for more information." /><figcaption>A scatterplot of the fuel consumption versus the weight of the car, along with the results of a linear regression. See the text for more information.</figcaption>
+<img src="figure/unnamed-chunk-7-1.png" alt="A scatterplot of the fuel consumption versus the weight of the car, along with the results of a linear regression. See the text for more information." /><figcaption>A scatterplot of the fuel consumption versus the weight of the car, along with the results of a linear regression. See the text for more information.</figcaption>
 </figure>
 <h2 id="scraping-the-web">Scraping the web</h2>
 <p>This script parses the Wikipedia page with Belgian Beers in order to get the data out. It then does some cleaning up and converts the data to different formats. The result can be stored in a file, but just display the first 10 rows.</p>
@@ -220,7 +325,7 @@ nas &lt;-<span class="st"> </span><span class="kw">length</span>(beers[<span cla
     <span class="dv">10</span>)
   )</code></pre>
 <table>
-<col style="width: 13%" /><col style="width: 38%" /><col style="width: 26%" /><thead>
+<col style="width: 13%" /><col style="width: 37%" /><col style="width: 26%" /><thead>
 <tr class="header">
 <th style="text-align: center;"> </th>
 <th style="text-align: center;">Merk</th>
@@ -229,72 +334,85 @@ nas &lt;-<span class="st"> </span><span class="kw">length</span>(beers[<span cla
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><strong>194</strong></td>
+<td style="text-align: center;"><strong>196</strong></td>
 <td style="text-align: center;">Black Damnation V (Double Black)</td>
 <td style="text-align: center;">26</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><strong>410</strong></td>
-<td style="text-align: center;">Cuv<U+00E9>e d'Erpigny</td>
+<td style="text-align: center;"><strong>412</strong></td>
+<td style="text-align: center;">Cuvée d'Erpigny</td>
 <td style="text-align: center;">15</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><strong>189</strong></td>
+<td style="text-align: center;"><strong>191</strong></td>
 <td style="text-align: center;">Black Albert</td>
 <td style="text-align: center;">13</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><strong>190</strong></td>
+<td style="text-align: center;"><strong>192</strong></td>
 <td style="text-align: center;">Black Damnation I</td>
 <td style="text-align: center;">13</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><strong>192</strong></td>
+<td style="text-align: center;"><strong>194</strong></td>
 <td style="text-align: center;">Black Damnation III (Black Mes)</td>
 <td style="text-align: center;">13</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><strong>193</strong></td>
-<td style="text-align: center;">Black Damnation IV (Coff<U+00E9>e Club)</td>
+<td style="text-align: center;"><strong>195</strong></td>
+<td style="text-align: center;">Black Damnation IV (Coffée Club)</td>
 <td style="text-align: center;">13</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><strong>312</strong></td>
-<td style="text-align: center;">Bush de No<U+00EB>l Premium</td>
+<td style="text-align: center;"><strong>313</strong></td>
+<td style="text-align: center;">Bush de Noël Premium</td>
 <td style="text-align: center;">13</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><strong>313</strong></td>
+<td style="text-align: center;"><strong>314</strong></td>
 <td style="text-align: center;">Bush de Nuits</td>
 <td style="text-align: center;">13</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><strong>314</strong></td>
+<td style="text-align: center;"><strong>315</strong></td>
 <td style="text-align: center;">Bush Prestige</td>
 <td style="text-align: center;">13</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><strong>409</strong></td>
-<td style="text-align: center;">Cuv<U+00E9>e Delphine</td>
+<td style="text-align: center;"><strong>411</strong></td>
+<td style="text-align: center;">Cuvée Delphine</td>
 <td style="text-align: center;">13</td>
 </tr>
 </tbody>
 </table>
 <h1 id="different-languages">Different languages</h1>
-<p>A Python example:</p>
+<h2 id="python">Python</h2>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> pprint
-pprint.pprint(<span class="dt">zip</span>((<span class="st">&#39;Byte&#39;</span>, <span class="st">&#39;KByte&#39;</span>, <span class="st">&#39;MByte&#39;</span>, <span class="st">&#39;GByte&#39;</span>, <span class="st">&#39;TByte&#39;</span>), (<span class="dv">1</span> &lt;&lt; <span class="dv">10</span>*i <span class="kw">for</span> i in <span class="dt">xrange</span>(<span class="dv">5</span>))))</code></pre>
+pprint.pprint(<span class="dt">zip</span>((<span class="st">&#39;Byte&#39;</span>, <span class="st">&#39;KByte&#39;</span>, <span class="st">&#39;MByte&#39;</span>, <span class="st">&#39;GByte&#39;</span>, <span class="st">&#39;TByte&#39;</span>), 
+              (<span class="dv">1</span> &lt;&lt; <span class="dv">10</span>*i <span class="kw">for</span> i in <span class="dt">xrange</span>(<span class="dv">5</span>))))</code></pre>
 <pre><code>## [(&#39;Byte&#39;, 1),
 ##  (&#39;KByte&#39;, 1024),
 ##  (&#39;MByte&#39;, 1048576),
 ##  (&#39;GByte&#39;, 1073741824),
 ##  (&#39;TByte&#39;, 1099511627776)]</code></pre>
-<p>A Scala example:</p>
+<h2 id="scala">Scala</h2>
 <pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> collection = <span class="kw">for</span> {i &lt;- <span class="dv">1</span> to <span class="dv">10</span>} <span class="kw">yield</span> {i}
 <span class="kw">val</span> mapped = collection <span class="fu">map</span> (x =&gt; x*x)
 <span class="kw">val</span> reduced = mapped <span class="fu">reduce</span> (_ + _)
 <span class="fu">println</span>(reduced)</code></pre>
 <pre><code>## 385</code></pre>
+<h1 id="sweave">Sweave</h1>
+<p><code>knitr</code> can handle sweave documents as well.</p>
+<pre class="sourceCode R"><code class="sourceCode r"><span class="kw">library</span>(knitr)
+<span class="kw">Sweave2knitr</span>(<span class="st">&#39;dummy.Rnw&#39;</span>)
+<span class="kw">knit</span>(<span class="st">&#39;dummy-knitr.Rnw&#39;</span>)</code></pre>
+<p>Or, just write in RMarkdown:</p>
+<pre class="script"><code>Rscript -e &#39;library(knitr); knit(&quot;rmarkdown-version.Rmd&quot;)
+pandoc rmarkdown-version.md -o rmarkdown-version.pdf --toc</code></pre>
+<p>Text (and code) can be translated using <code>Pandoc</code></p>
+<figure>
+<img src="figure/SweaveVsRmd.png" alt="Side-by-side view of the same text/code in RMarkdown and Sweave" /><figcaption>Side-by-side view of the same text/code in RMarkdown and Sweave</figcaption>
+</figure>
 <h1 id="what-to-use-it-for">What to use it for?</h1>
 <p>I use it for:</p>
 <ul>
@@ -303,7 +421,16 @@ pprint.pprint(<span class="dt">zip</span>((<span class="st">&#39;Byte&#39;</span
 <li>Writing papers (just text)</li>
 <li>Making coffee</li>
 </ul>
-<h1 id="some-additional-pointers">Some additional pointers</h1>
+<h1 id="how-to-use-it">How to use it?</h1>
+<h2 id="rstudio">RStudio</h2>
+<figure>
+<img src="figure/RStudio-Screenshot.png" alt="Screenshot of (part of) RStudio" /><figcaption>Screenshot of (part of) RStudio</figcaption>
+</figure>
+<h2 id="your-favourite-editor-here"><em>your favourite editor here</em></h2>
+<figure>
+<img src="figure/Sublime-Screenshot.png" alt="Screenshot of Sublime Editor with Markdown mode" /><figcaption>Screenshot of Sublime Editor with Markdown mode</figcaption>
+</figure>
+<h1 id="additional-pointers">Additional pointers</h1>
 <ul>
 <li>Markdown to <code>Reveal.js</code>: <a href="http://tverbeiren.github.io/BigDataBe-Spark/#/">http://tverbeiren.github.io/BigDataBe-Spark/#/</a></li>
 <li>Markdown and <code>Pandoc</code> for writing a paper: <a href="http://homes.esat.kuleuven.be/~bioiuser/blog/?p=243">http://homes.esat.kuleuven.be/~bioiuser/blog/?p=243</a></li>

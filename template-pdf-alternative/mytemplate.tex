@@ -1,0 +1,199 @@
+%\documentclass{vgtc}                          % final (conference style)
+\documentclass[widereview]{template-pdf-alternative/vgtc}                 % review
+%\documentclass[widereview]{vgtc}             % wide-spaced review
+%\documentclass[preprint]{vgtc}               % preprint
+%\documentclass[electronic]{vgtc}             % electronic version
+
+%% Uncomment one of the lines above depending on where your paper is
+%% in the conference process. ``review'' and ``widereview'' are for review
+%% submission, ``preprint'' is for pre-publication, and the final version
+%% doesn't use a specific qualifier. Further, ``electronic'' includes
+%% hyperreferences for more convenient online viewing.
+
+%% Please use one of the ``review'' options in combination with the
+%% assigned online id (see below) ONLY if your paper uses a double blind
+%% review process. Some conferences, like IEEE Vis and InfoVis, have NOT
+%% in the past.
+
+%% Figures should be in CMYK or Grey scale format, otherwise, colour 
+%% shifting may occur during the printing process.
+
+%% These three lines bring in essential packages: ``mathptmx'' for Type 1 
+%% typefaces, ``graphicx'' for inclusion of EPS figures. and ``times''
+%% for proper handling of the times font family.
+
+\usepackage{mathptmx}
+\usepackage{graphicx}
+\usepackage{times}
+\usepackage{framed}
+\usepackage{hyperref}
+\usepackage{longtable} % this is incompatible with 2 columns!
+\usepackage{booktabs}
+
+% TVE: Custom things...
+$if(graphics)$
+%\usepackage[pdftex]{graphicx}
+%\pdfcompresslevel=9
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\linewidth]{#1}}
+$endif$
+
+\usepackage{color}
+\definecolor{light-gray}{gray}{0.7}
+\usepackage{listings}
+\lstset{% general command to set parameter(s)
+  basicstyle=\small\ttfamily, % print whole listing small
+  identifierstyle=, % nothing happens
+  commentstyle=\color{white}, % white comments
+  showstringspaces=false,
+%  numbers=left,
+  numberstyle=\color{light-gray}\small,
+  xleftmargin=20pt}
+
+\usepackage{url}
+\usepackage{amsmath}
+
+
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\small}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\ErrorTok}[1]{\textbf{{#1}}}
+\newcommand{\NormalTok}[1]{{#1}}
+
+
+%% We encourage the use of mathptmx for consistent usage of times font
+%% throughout the proceedings. However, if you encounter conflicts
+%% with other math-related packages, you may want to disable it.
+
+%% If you are submitting a paper to a conference for review with a double
+%% blind reviewing process, please replace the value ``0'' below with your
+%% OnlineID. Otherwise, you may safely leave it at ``0''.
+\onlineid{109}
+
+%% declare the category of your paper, only shown in review mode
+\vgtccategory{Research}
+
+%% allow for this line if you want the electronic option to work properly
+\vgtcinsertpkg
+
+%% In preprint mode you may define your own headline.
+%\preprinttext{To appear in an IEEE VGTC sponsored conference.}
+
+%% Paper title.
+
+\title{$title$}
+
+%% This is how authors are specified in the conference style
+
+%% Author and Affiliation (single author).
+%%\author{Roy G. Biv\thanks{e-mail: roy.g.biv@aol.com}}
+%%\affiliation{\scriptsize Allied Widgets Research}
+
+%% Author and Affiliation (multiple authors with single affiliations).
+%%\author{Roy G. Biv\thanks{e-mail: roy.g.biv@aol.com} %
+%%\and Ed Grimley\thanks{e-mail:ed.grimley@aol.com} %
+%%\and Martha Stewart\thanks{e-mail:martha.stewart@marthastewart.com}}
+%%\affiliation{\scriptsize Martha Stewart Enterprises \\ Microsoft Research}
+
+%% Author and Affiliation (multiple authors with multiple affiliations)
+% \author{Roy G. Biv\thanks{e-mail: roy.g.biv@aol.com}\\ %
+%         \scriptsize Starbucks Research %
+% \and Ed Grimley\thanks{e-mail:ed.grimley@aol.com}\\ %
+%      \scriptsize Grimley Widgets, Inc. %
+% \and Martha Stewart\thanks{e-mail:martha.stewart@marthastewart.com}\\ %
+%      \parbox{1.4in}{\scriptsize \centering Martha Stewart Enterprises \\ Microsoft Research}}
+
+%\author{$author$}
+
+\author{T. Verbeiren\thanks{toni.verbeiren@esat.kuleuven.be}\\
+\parbox{1.4in}{\scriptsize \centering 
+ \scriptsize KU Leuven, ESAT-STADIUS\\
+ \scriptsize ExaScience Life Lab\\
+ \scriptsize iMinds Medical IT}
+\and R. Sakai\thanks{ryo.sakai@esat.kuleuven.be}\\
+\parbox{1.4in}{\scriptsize \centering 
+ \scriptsize KU Leuven, ESAT-STADIUS\\
+ \scriptsize ExaScience Life Lab\\
+ \scriptsize iMinds Medical IT}
+\and T. Fitzgerald\thanks{tf2@sanger.ac.uk}\\
+\parbox{1.4in}{\scriptsize \centering
+ \scriptsize Wellcome Trust Sanger Institute, Hinxton, UK}\\
+\and J. Aerts\thanks{jan.aerts@esat.kuleuven.be}\\
+\parbox{1.4in}{\scriptsize \centering 
+ \scriptsize KU Leuven, ESAT-STADIUS\\
+ \scriptsize ExaScience Life Lab\\
+ \scriptsize iMinds Medical IT}
+}
+
+
+%% A teaser figure can be included as follows, but is not recommended since
+%% the space is now taken up by a full width abstract.
+%\teaser{
+%  \includegraphics[width=1.5in]{sample.eps}
+%  \caption{Lookit! Lookit!}
+%}
+
+% Abstract section.
+\abstract{
+ $abstract$
+} % end of abstract
+
+%% ACM Computing Classification System (CCS). 
+%% See <http://www.acm.org/class/1998/> for details.
+%% The ``\CCScat'' command takes four arguments.
+
+\CCScatlist{ 
+  \CCScat{Computer Graphics}{I.3.3}{Picture/Image Generation}{Display algorithms}
+  \CCScat{Computer Graphics}{I.3.3}{Picture/Image Generation}{Distributed/network graphics}
+  \CCScat{Methodology and Techniques}{I.3.6}{Graphics data structures and data types}
+  \CCScat{Hardware Architecture}{I.3.1}{Parallel processing}
+  \CCScat{Life and Medical Sciences}{J.3}{Biology and genetics}
+}
+%% Copyright space is enabled by default as required by guidelines.
+%% It is disabled by the 'review' option or via the following command:
+% \nocopyrightspace
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% START OF THE PAPER %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+$body$
+
+% if specified like this the section will be ommitted in review mode
+\acknowledgements{
+The authors wish to thank Roel Wuyts for helpful discussions concerning functional programming and architecture design and Jaak Simm for reviewing the manuscript. 
+This project was funded in part by KU Leuven program financing PFV/10/016 SymBioSys, GOA/10/09 MaNet and by IWT O\&O ExaScience Life, Intel and Janssen Pharmaceutica. Test runs of the presented algorithms were run at the ExaScience Life Lab, Leuven, Belgium and the Intel HPC Lab, Swindon, UK.
+}
+
+\bibliographystyle{abbrv}
+%%use following if all content of bibtex file should be shown
+%\nocite{*}
+\bibliography{paper}
+\end{document}

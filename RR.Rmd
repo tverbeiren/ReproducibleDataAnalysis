@@ -1,6 +1,6 @@
 % A Shot at Reproducible Data Analysis
 % Toni Verbeiren
-% 15/9/2014
+% 13/3/2015
 
 # Introduction
 
@@ -17,14 +17,22 @@ In this talk/document/presentation I showcase some of the possibilities that a c
 
 In order to make sure things look good from the first start, you might check out some additional projects and files:
 
-* Bootstrap template for Pandoc: <https://github.com/tonyblundell/pandoc-bootstrap-template>
-* Alternative LaTeX templates: <https://github.com/kjhealy/latex-custom-kjh>
-* Alternative Pandoc template: <https://github.com/kjhealy/pandoc-templates>
+* Bootstrap template for Pandoc: 
+  <https://github.com/tonyblundell/pandoc-bootstrap-template>
+* Alternative LaTeX templates: 
+  <https://github.com/kjhealy/latex-custom-kjh>
+* Alternative Pandoc template: 
+  <https://github.com/kjhealy/pandoc-templates>
+* Non-official KU Leuven templates:
+  <https://github.com/exporl/kuleuven-templates>
 
+- - -
 
 # Idea
 
-This is the general idea of the production workflow:
+- - -
+
+## Workflow
 
 1. Write data generation, data manipulation and discussion in **one text file**.
     * Syntax for text is Markdown.
@@ -37,18 +45,48 @@ This is the general idea of the production workflow:
 
 - - -
 
+## RMarkdown format
+
+The `.Rmd` source of this report looks like this (50 lines):
+
+```{r, results="markup", comment=""}
+text <- readLines("RR.Rmd",encoding="UTF-8")
+tail(head(text, 70),50)
+```
+
+- - -
+
+## Markdown format
+
+The `.md` source of this report looks like this (50 lines):
+
+```{r, results="markup", comment=""}
+text <- readLines("RR.md",encoding="UTF-8")
+tail(head(text, 70),50)
+```
+
+Conversion is done using `knitr`.
+
+- - -
+
+## Pandoc
+
 A simple and a more involved example of running `Pandoc`:
 
 ```shell
-pandoc file.md -o $(FILE).docx
+pandoc file.md -o file.docx
 
-pandoc $(FILE).md -o $(FILE).html \
+pandoc file.md -o file.html \
       -t html5 \
-			--template $(THTML)/template.html \
-			--css $(THTML)/template.css \
+			--template template.html \
+			--css template.css \
 			--highlight-style=tango --mathjax \
 			--toc --toc-depth 2
 ```
+
+Dust off your `Makefile` skills!
+
+- - - 
 
 # Some Examples
 
@@ -161,17 +199,23 @@ pander(
   )
 ```
 
+- - -
 
 # Different languages
 
-A Python example:
+- - -
+
+## Python
 
 ```{r , cache=TRUE, engine="python"}
 import pprint
-pprint.pprint(zip(('Byte', 'KByte', 'MByte', 'GByte', 'TByte'), (1 << 10*i for i in xrange(5))))
+pprint.pprint(zip(('Byte', 'KByte', 'MByte', 'GByte', 'TByte'), 
+              (1 << 10*i for i in xrange(5))))
 ```
 
-A Scala example:
+- - -
+
+## Scala
 
 ```{r , cache=TRUE, engine="scala"}
 val collection = for {i <- 1 to 10} yield {i}
@@ -180,6 +224,37 @@ val reduced = mapped reduce (_ + _)
 println(reduced)
 ```
 
+- - -
+
+# Sweave
+
+- - -
+
+`knitr` can handle sweave documents as well.
+
+```R
+library(knitr)
+Sweave2knitr('dummy.Rnw')
+knit('dummy-knitr.Rnw')
+```
+
+- - -
+
+Or, just write in RMarkdown:
+
+```script
+Rscript -e 'library(knitr); knit("rmarkdown-version.Rmd")
+pandoc rmarkdown-version.md -o rmarkdown-version.pdf --toc
+```
+
+Text (and code) can be translated using `Pandoc`
+
+- - -
+
+![Side-by-side view of the same text/code in RMarkdown and Sweave](figure/SweaveVsRmd.png)
+
+
+- - -
 
 # What to use it for?
 
@@ -190,13 +265,34 @@ I use it for:
 * Writing papers (just text)
 * Making coffee
 
+- - -
 
-# Some additional pointers
+# How to use it?
 
-* Markdown to `Reveal.js`: <http://tverbeiren.github.io/BigDataBe-Spark/#/>
-* Markdown and `Pandoc` for writing a paper: <http://homes.esat.kuleuven.be/~bioiuser/blog/?p=243>
-* Markdown and `Pandoc` for lecture notes: <https://bitbucket.org/tverbeiren/i0u19a>
-* You can find everything I showed here at: <http://github.io/tverbeiren/ReproducibleDataAnalysis/>
+- - -
+
+## RStudio
+
+![Screenshot of (part of) RStudio](figure/RStudio-Screenshot.png)
+
+- - -
+
+## _your favourite editor here_
+
+![Screenshot of Sublime Editor with Markdown mode](figure/Sublime-Screenshot.png)
+
+- - -
+
+# Additional pointers
+
+* Markdown to `Reveal.js`: 
+  <http://tverbeiren.github.io/BigDataBe-Spark/#/>
+* Markdown and `Pandoc` for writing a paper: 
+  <http://homes.esat.kuleuven.be/~bioiuser/blog/?p=243>
+* Markdown and `Pandoc` for lecture notes: 
+  <https://bitbucket.org/tverbeiren/i0u19a>
+* You can find everything I showed here at: 
+  <http://github.io/tverbeiren/ReproducibleDataAnalysis/>
 
 
 

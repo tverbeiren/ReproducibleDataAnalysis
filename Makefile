@@ -1,8 +1,9 @@
 FILE=RR
 THTML=template-html
 TPDF=template-pdf
+TPDFa=template-pdf-alternative
 
-all: $(FILE)-simple.html $(FILE).html $(FILE).pdf $(FILE)-simple.pdf $(FILE)-slides.html $(FILE).docx
+all: $(FILE)-simple.html $(FILE).html $(FILE).pdf $(FILE)-simple.pdf $(FILE)-alternative.pdf $(FILE)-slides.html $(FILE).docx
 
 clean:
 	rm $(FILE).docx
@@ -51,6 +52,17 @@ $(FILE)-simple.pdf: $(FILE)s.md
 			--variable paper=a4paper \
 			--toc --toc-depth 2 \
 			--variable tables
+
+$(FILE)-alternative.pdf: $(FILE)s.md
+	pandoc $(FILE)s.md -o $(FILE)-alternative.pdf \
+			--template $(TPDFa)/mytemplate.tex \
+			--highlight-style tango \
+			--variable paper=letterpaper \
+			--variable ebook  \
+			--toc --variable toc-depth=1 \
+			--variable numbersections \
+			--variable documentclass=article \
+			--variable graphics 
 
 $(FILE)-slides.html: $(FILE).md
 	pandoc $(FILE).md -o $(FILE)-slides.html \
